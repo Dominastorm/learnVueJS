@@ -16,11 +16,14 @@
   <body>
     <div id="app" v-cloak>
       {{ greeting }}
-      <input v-model="greeting" />
+      <!-- VueJS Event modifiers -->
+      <!-- Listen for enter key press and call funcition (with or without parameter) -->
+      <input @keyup.enter="greet(greeting + '!!!!!!')" v-model="greeting" />
 
       <hr />
 
-      <button @click="toggleBox">Toggle Box</button>
+      <!-- You can chain as many modifiers as you want -->
+      <button @click.prevent.stop="toggleBox">Toggle Box</button>
       <div v-if="isVisible" class="box"></div>
     </div>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -33,9 +36,11 @@
           };
         },
         methods: {
-          // () can be wrriten instead of ": function()"
           toggleBox () {
             this.isVisible = !this.isVisible;
+          },
+          greet (greeting) {
+            console.log(greeting);
           }
         }
       });
