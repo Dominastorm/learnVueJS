@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Vue 3 Basics</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+        .box.two {
+            background-color: blue;
+        }
+        .box.three {
+            background-color: green;
+        }
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+  </head>
+  <body>
+    <!-- v-cloak prevents everything from rendering until the entire Vue applicaiotn is ready -->
+    <!-- Needs to be defined in style -->
+    <div id="app" v-cloak>
+      {{ greeting }}
+      <!-- Two way data binding -->
+      <input v-model="greeting" />
+
+      <hr />
+
+      <!-- Conditionals -->
+      <!-- Can also use v-show instead of v-if -->
+      <!-- In case of v-show, it will be present in DOM, but display will be set to none -->
+      <!-- In case of v-if, you will not be able to see it in the DOM -->
+      <div v-if="isVisible" class="box"></div>
+      <div v-else-if="isVisible2" class="box two"></div>
+      <div v-else class="box three"></div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      // Create a Vue instance
+      let app = Vue.createApp({
+        data: function () {
+          return {
+            greeting: "Hello Vue 3!",
+            isVisible: false,
+            isVisible2: false,
+          };
+        },
+      });
+      // Mount the Vue instance to the DOM
+      app.mount("#app");
+    </script>
+  </body>
+</html>
