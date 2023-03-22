@@ -49,6 +49,12 @@
         template: `
           <form @submit.prevent="handleSubmit">
             <h1>{{ title }}</h1>
+            
+            <!-- You should add a key in every loop-->
+            <p v-for="str in inputs" :key="str">{{ str }}</p>
+            <!-- You can also use it in enumerate style -->
+            <p v-for="(str, index) in inputs" :key="index">{{ str }}</p>
+
             <custom-input v-model="email" v-bind:label="emailLabel"/>
             <custom-input v-model="password" v-bind:label="passwordLabel" />
             <button>Log in</button>
@@ -58,6 +64,11 @@
         data () {
           return {
             title: 'Login Form',
+            inputs: [
+              'email',
+              'password',
+              'name'
+            ],
             email: '',
             password: '',
             emailLabel: 'Email',
