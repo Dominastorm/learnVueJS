@@ -49,11 +49,17 @@
       app.component("login-form", {
         template: `
           <div>
+            <h1>{{ title }}</h1>
             <input type="email" />
             <input type="password" />
             <button>Login</button>
           </div>
         `,
+        data () {
+          return {
+            title: 'Login Form'
+          }
+        }
       });
 
       app.mount("#app");
