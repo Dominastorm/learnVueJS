@@ -19,7 +19,6 @@
   </head>
   <body>
     <div id="app" v-cloak>
-      <!-- This is a Vue Component, define it in script after app definition and before app mounting -->
       <login-form />
 
       <hr />
@@ -50,25 +49,42 @@
         template: `
           <form @submit.prevent="handleSubmit">
             <h1>{{ title }}</h1>
-            <input type="email" v-model="email"/>
-            <input type="password" v-model="password" />
+            <!-- v-bind is used to bind the value of the input to the data property -->
+            <!-- You can also use :value="username" instead of v-bind:value="username" -->
+            <custom-input type="email" v-bind:label="emailLabel"/>
+            <custom-input type="password" v-bind:label="passwordLabel" />
             <button>Login</button>
           </form>
         `,
+        // You need to register a component before you can use it
+        components: ["custom-input"],
         data () {
           return {
             title: 'Login Form',
             email: '',
-            password: ''
+            password: '',
+            emailLabel: 'Email',
+            passwordLabel: 'Password'
           }
         },
         methods: {
+          // The values of email and password won't change until we add the v-model directive to the custom-input component
           handleSubmit () {
-            // Need to use this because we are in a component
             console.log(this.email, this.password)
           }
         }
       });
+
+      app.component("custom-input", {
+        template: `
+          <label>
+            {{ label }}
+            <input type="text" />
+          </label>
+          `,
+        // All the props that are passed down from the parent to the child 
+        props: ["label"],
+      })
 
       app.mount("#app");
     </script>
