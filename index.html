@@ -48,7 +48,7 @@
 
       app.component("login-form", {
         template: `
-          <form @submit="handleSubmit">
+          <form @submit.prevent="handleSubmit">
             <h1>{{ title }}</h1>
             <input type="email" />
             <input type="password" />
@@ -61,8 +61,7 @@
           }
         },
         methods: {
-          handleSubmit (event) {
-            event.preventDefault() // prevent page reload
+          handleSubmit () {
             console.log('Submitted')
           }
         }
