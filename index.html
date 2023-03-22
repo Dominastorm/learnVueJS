@@ -4,16 +4,16 @@
     <title>Vue 3 Basics</title>
     <style>
       .box {
+        background-color: red;
         width: 100px;
         height: 100px;
-        background-color: red;
       }
     </style>
   </head>
   <body>
     <div id="app">
       <button @click="toggleBox">Toggle Box</button>
-      <div v-if="isVisible" class="box"></div>
+			<test-box v-if="isVisible" />
     </div>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
@@ -30,6 +30,9 @@
         },
       });
 
+			app.component("test-box", {
+				template: `<div class="box"></div>`,
+			});
       app.mount("#app");
     </script>
   </body>
