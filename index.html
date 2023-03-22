@@ -50,19 +50,22 @@
         template: `
           <form @submit.prevent="handleSubmit">
             <h1>{{ title }}</h1>
-            <input type="email" />
-            <input type="password" />
+            <input type="email" v-model="email"/>
+            <input type="password" v-model="password" />
             <button>Login</button>
           </form>
         `,
         data () {
           return {
-            title: 'Login Form'
+            title: 'Login Form',
+            email: '',
+            password: ''
           }
         },
         methods: {
           handleSubmit () {
-            console.log('Submitted')
+            // Need to use this because we are in a component
+            console.log(this.email, this.password)
           }
         }
       });
