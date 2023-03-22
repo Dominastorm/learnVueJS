@@ -49,14 +49,13 @@
         template: `
           <form @submit.prevent="handleSubmit">
             <h1>{{ title }}</h1>
-            
-            <!-- You should add a key in every loop-->
-            <p v-for="str in inputs" :key="str">{{ str }}</p>
-            <!-- You can also use it in enumerate style -->
-            <p v-for="(str, index) in inputs" :key="index">{{ str }}</p>
-
-            <custom-input v-model="email" v-bind:label="emailLabel"/>
-            <custom-input v-model="password" v-bind:label="passwordLabel" />
+            <custom-input
+							v-for="(input, i) in inputs"
+              :key="i"
+							v-model="input.value"
+            	:label="input.label"
+							:type="input.type"
+            />
             <button>Log in</button>
           </form>
         `,
@@ -65,19 +64,22 @@
           return {
             title: 'Login Form',
             inputs: [
-              'email',
-              'password',
-              'name'
-            ],
-            email: '',
-            password: '',
-            emailLabel: 'Email',
-            passwordLabel: 'Password'
+              {
+                label: 'Email',
+                value: '',
+                type: 'email',
+              },
+              {
+                label: 'Password',
+                value: '',
+                type: 'password',
+              }
+            ]
           }
         },
         methods: {
           handleSubmit () {
-            console.log(this.email, this.password)
+            console.log(this.inputs[0].value, this.inputs[1].value);
           }
         }
       });
@@ -86,19 +88,16 @@
         template: `
           <label>
             {{ label }}
-            <input type="text" v-model="inputValue"/>
+            <input :type="type" v-model="inputValue"/>
           </label>
           `,
-        // These values are immutable, while the data and computed properties are reactive
-        props: ["label", "modelValue"],
-        // Computed takes the value of the input and then it emits an event to the parent component
+        props: ["label", "type", "modelValue"],
         computed: {
           inputValue: {
             get() {
               return this.modelValue;
             },
             set(value) {
-              // emit an event to the parent component
               this.$emit("update:modelValue", value);
             },
           },
