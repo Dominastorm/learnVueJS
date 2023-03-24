@@ -116,6 +116,7 @@
             } 
             this.cart[name] += this.inventory[i].quantity;
             console.log(this.cart);
+            this.inventory[i].quantity = 0;
           },
           toggleSidebar() {
             this.showSidebar = !this.showSidebar;
