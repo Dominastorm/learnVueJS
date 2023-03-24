@@ -41,7 +41,7 @@
 
         <div class="recommended">
 
-          <div v-for="(product, index) in inventory.slice(0,3)" :key="product.id" class="card">
+          <div v-for="(product, i) in inventory.slice(0,3)" :key="product.id" class="card">
             <div class="card-title">
               {{ product.name }}
             </div>
@@ -75,7 +75,7 @@
               </form>
             </div>
             <div class="card-footer">
-              <button @click="addToCart(product.name, index)" class="btn btn-light">Add to cart</button>
+              <button @click="addToCart(product.name, i)" class="btn btn-light">Add to cart</button>
             </div>
           </div>
 
@@ -88,6 +88,7 @@
         v-if="showSidebar" 
         :toggle="toggleSidebar"
         :cart="cart"
+        :inventory="inventory"
         />
 
       <footer>
@@ -107,11 +108,11 @@
           }
         },
         methods: {
-          addToCart(name, index) {
+          addToCart(name, i) {
             if (!this.cart[name]) {
               this.cart[name] = 0;
             } 
-            this.cart[name] += this.inventory[index].quantity;
+            this.cart[name] += this.inventory[i].quantity;
             console.log(this.cart);
           },
           toggleSidebar() {
@@ -126,7 +127,7 @@
       })
       
       app.component('sidebar', {
-        props: ['toggle', 'cart'],
+        props: ['toggle', 'cart', 'inventory'],
         computed: {
           cartTotal() {
             return (this.cart.carrots * 4.82).toFixed(2);
@@ -156,12 +157,12 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr v-for="(quantity, key, i) in cart" :key="i">
                   <td><i class="icofont-carrot icofont-3x"></i></td>
-                  <td>Carrot</td>
-                  <td>$4.82</td>
-                  <td class="center">{{ cart.carrots }}</td>
-                  <td>\${{ cart.carrots * 4.82 }}</td>
+                  <td>{{ key }}</td>
+                  <td>\${{ inventory[i].price.USD }}</td>
+                  <td class="center">{{ quantity }}</td>
+                  <td>\${{ quantity * inventory[i].price.USD }}</td>
                   <td class="center">
                     <button class="btn btn-light cart-remove">
                       &times;
