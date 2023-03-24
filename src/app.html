@@ -133,6 +133,11 @@
             return (this.cart.carrots * 4.82).toFixed(2);
           }
         },
+        methods: {
+          getPrice(name) {
+            return this.inventory.find(product => product.name === name).price.USD;
+          }
+        },
         template: `
         <aside class="cart-container">
         <div class="cart">
@@ -160,9 +165,9 @@
                 <tr v-for="(quantity, key, i) in cart" :key="i">
                   <td><i class="icofont-carrot icofont-3x"></i></td>
                   <td>{{ key }}</td>
-                  <td>\${{ inventory[i].price.USD }}</td>
+                  <td>\${{ getPrice(key) }}</td>
                   <td class="center">{{ quantity }}</td>
-                  <td>\${{ quantity * inventory[i].price.USD }}</td>
+                  <td>\${{ quantity * getPrice(key) }}</td>
                   <td class="center">
                     <button class="btn btn-light cart-remove">
                       &times;
