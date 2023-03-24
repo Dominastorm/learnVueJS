@@ -135,11 +135,10 @@
             return this.inventory.find(product => product.name === name).price.USD;
           },
           getTotal() {
-            let total = 0;
-            for (let key in this.cart) {
-              total += this.cart[key] * this.getPrice(key);
-            }
-            return total;
+            const names = Object.keys(this.cart);
+            return names.reduce((total, name) => {
+              return total + this.cart[name] * this.getPrice(name);
+            }, 0);
           }
         },
         template: `
