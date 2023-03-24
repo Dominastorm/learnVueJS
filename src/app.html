@@ -205,7 +205,7 @@
         props: ['toggle', 'cart'],
         computed: {
           cartTotal() {
-            return this.cart.carrots * 4.82;
+            return (this.cart.carrots * 4.82).toFixed(2);
           }
         },
         template: `
