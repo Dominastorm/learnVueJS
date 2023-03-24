@@ -159,14 +159,15 @@
 
       </main>
 
-      <sidebar v-if="showSidebar"/>
+      <!-- We are passing the method as a prop -->
+      <sidebar v-if="showSidebar" :toggle="toggleSidebar"/>
 
       <footer>
       </footer>
 
     </div>
 
-    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/vue@n`ext"></script>
     
     <script>
       let app = Vue.createApp({
@@ -197,6 +198,7 @@
       })
       
       app.component('sidebar', {
+        props: ['toggle'],
         template: `
         <aside class="cart-container">
         <div class="cart">
@@ -205,7 +207,7 @@
               Cart
               <i class="icofont-cart-alt icofont-1x"></i>
             </span>
-            <button class="cart-close">&times;</button>
+            <button @click="toggle" class="cart-close">&times;</button>
           </h1>
 
           <div class="cart-body">
