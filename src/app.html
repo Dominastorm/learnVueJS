@@ -84,7 +84,6 @@
 
       </main>
 
-      <!-- We need to assign removeItem to another variable when using CDN, this is not required when importing using npm -->
       <sidebar 
         v-if="showSidebar" 
         :toggle="toggleSidebar"
@@ -138,8 +137,6 @@
       })
       
       app.component('sidebar', {
-        // The removeItem method cannot be defined inside the component because you cannot modify the props like 
-        // inventory or cart from inside the component. You can only modify them from the parent component.
         props: ['toggle', 'cart', 'inventory', 'remove'],
         methods: {
           getPrice(name) {
