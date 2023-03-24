@@ -84,11 +84,13 @@
 
       </main>
 
+      <!-- We need to assign removeItem to another variable when using CDN, this is not required when importing using npm -->
       <sidebar 
         v-if="showSidebar" 
         :toggle="toggleSidebar"
         :cart="cart"
         :inventory="inventory"
+        :remove="removeItem"
         />
 
       <footer>
@@ -117,6 +119,9 @@
           },
           toggleSidebar() {
             this.showSidebar = !this.showSidebar;
+          },
+          removeItem(name) {
+            delete this.cart[name];
           }
         },
         async mounted() {
@@ -127,9 +132,9 @@
       })
       
       app.component('sidebar', {
-        props: ['toggle', 'cart', 'inventory'],
-        computed: {
-        },
+        // The removeItem method cannot be defined inside the component because you cannot modify the props like 
+        // inventory or cart from inside the component. You can only modify them from the parent component.
+        props: ['toggle', 'cart', 'inventory', 'remove'],
         methods: {
           getPrice(name) {
             return this.inventory.find(product => product.name === name).price.USD;
@@ -173,7 +178,7 @@
                   <td class="center">{{ quantity }}</td>
                   <td>\${{ (quantity * getPrice(key)).toFixed(2) }}</td>
                   <td class="center">
-                    <button class="btn btn-light cart-remove">
+                    <button class="btn btn-light cart-remove" @click="remove(key)">
                       &times;
                     </button>
                   </td>
