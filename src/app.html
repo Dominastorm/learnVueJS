@@ -69,15 +69,13 @@
                     <label>Quantity:</label>
                   </div>
                   <div class="cell">
-                    <input type="number" v-model="inventory.carrots">
+                    <input type="number" value="0">
                   </div>
                 </div>
               </form>
             </div>
             <div class="card-footer">
-              <button @click="addToCart('carrots')" class="btn btn-light">
-                Add to cart
-              </button>
+              <button class="btn btn-light">Add to cart</button>
             </div>
           </div>
 
@@ -109,13 +107,13 @@
                     <label>Quantity:</label>
                   </div>
                   <div class="cell">
-                    <input type="number" v-model="inventory.pineapples">
+                    <input type="number" value="0">
                   </div>
                 </div>
               </form>
             </div>
             <div class="card-footer">
-              <button @click="addToCart('carrots')" class="btn btn-light">Add to cart</button>
+              <button class="btn btn-light">Add to cart</button>
             </div>
           </div>
 
@@ -147,13 +145,13 @@
                     <label>Quantity:</label>
                   </div>
                   <div class="cell">
-                    <input type="number" v-model="inventory.cherries">
+                    <input type="number" value="0">
                   </div>
                 </div>
               </form>
             </div>
             <div class="card-footer">
-              <button @click="addToCart('carrots')" class="btn btn-light">Add to cart</button>
+              <button class="btn btn-light">Add to cart</button>
             </div>
           </div>
 
@@ -165,35 +163,7 @@
       </footer>
 
     </div>
-
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-
-    <script>
-      let app = Vue.createApp({
-        data() {
-          return {
-            inventory: {
-              carrots: 0,
-              pineapples: 0,
-              cherries: 0
-            },
-            cart: {
-              carrots: 0,
-              pineapples: 0,
-              cherries: 0
-            }
-          }
-        },
-        methods: {
-          addToCart(type, quantity) {
-            this.cart[type] += quantity;
-            console.log(this.cart);
-          }
-        }       
-      })
-
-      app.mount('#app')
+      
     </script>
-
   </body>
 </html>
